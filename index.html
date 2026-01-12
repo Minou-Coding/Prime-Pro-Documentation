@@ -1141,169 +1141,172 @@
 
         </section>
 
-    </main>
 
-    <!-- PAGE: XP -->
-    <section id="xp" class="page">
-        <h1 class="page-title">Système d'XP</h1>
-        <p class="page-subtitle">Gamification complète pour engager votre communauté.</p>
 
-        <div class="command-card alert-card success">
-            <h3 style="margin-top:0;">🌟 Fonctionnalités</h3>
-            <ul style="margin-left: 20px; color: #ccc;">
-                <li>XP par **tranche de messages** (pour éviter le spam).</li>
-                <li>XP par **temps vocal** (récompense l'activité audio).</li>
-                <li>Carte de Rang premium personnalisée.</li>
-                <li>Difficulté ajustable (Facile, Normal, Hardcore).</li>
-            </ul>
-        </div>
+        <!-- PAGE: XP -->
+        <section id="xp" class="page">
+            <h1 class="page-title">Système d'XP</h1>
+            <p class="page-subtitle">Gamification complète pour engager votre communauté.</p>
 
-        <h2>Commandes Membres</h2>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge" style="background: #3b82f6;">PUBLIC</span>
-                <code>/rank</code>
+            <div class="command-card alert-card success">
+                <h3 style="margin-top:0;">🌟 Fonctionnalités</h3>
+                <ul style="margin-left: 20px; color: #ccc;">
+                    <li>XP par **tranche de messages** (pour éviter le spam).</li>
+                    <li>XP par **temps vocal** (récompense l'activité audio).</li>
+                    <li>Carte de Rang premium personnalisée.</li>
+                    <li>Difficulté ajustable (Facile, Normal, Hardcore).</li>
+                </ul>
             </div>
-            <p>Affiche votre carte de niveau actuelle avec votre progression.</p>
-        </div>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge" style="background: #3b82f6;">PUBLIC</span>
-                <code>/leaderboard</code>
+
+            <h2>Commandes Membres</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge" style="background: #3b82f6;">PUBLIC</span>
+                    <code>/rank</code>
+                </div>
+                <p>Affiche votre carte de niveau actuelle avec votre progression.</p>
             </div>
-            <p>Affiche le classement des 10 membres les plus actifs.</p>
-        </div>
-
-        <h2>Configuration (Admin)</h2>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge">CONFIG</span>
-                <code>/config-xp</code>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge" style="background: #3b82f6;">PUBLIC</span>
+                    <code>/leaderboard</code>
+                </div>
+                <p>Affiche le classement des 10 membres les plus actifs.</p>
             </div>
-            <p>Gérez tous les aspects du leveling.</p>
-            <table class="params-table">
-                <tr>
-                    <th>Sous-commande</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>view-config</td>
-                    <td>Voir les réglages actuels d'un coup d'œil.</td>
-                </tr>
-                <tr>
-                    <td>toggle</td>
-                    <td>Activer ou désactiver le système d'XP entier.</td>
-                </tr>
-                <tr>
-                    <td>set-message-rate</td>
-                    <td>Définir l'XP gagné par tranche de messages (ex: 10 XP tous les 5 msg).</td>
-                </tr>
-                <tr>
-                    <td>set-voice</td>
-                    <td>Définir l'XP gagné par temps vocal (ex: 20 XP toutes les 15 min).</td>
-                </tr>
-                <tr>
-                    <td>set-difficulty</td>
-                    <td>Ajuster la courbe de progression (Facile, Normal, Difficile).</td>
-                </tr>
-                <tr>
-                    <td>set-channel</td>
-                    <td>Définir où les messages de "Level Up" sont envoyés.</td>
-                </tr>
-            </table>
-        </div>
 
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge">REWARDS</span>
-                <code>/xp-roles</code>
+            <h2>Configuration (Admin)</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CONFIG</span>
+                    <code>/config-xp</code>
+                </div>
+                <p>Gérez tous les aspects du leveling.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Sous-commande</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>view-config</td>
+                        <td>Voir les réglages actuels d'un coup d'œil.</td>
+                    </tr>
+                    <tr>
+                        <td>toggle</td>
+                        <td>Activer ou désactiver le système d'XP entier.</td>
+                    </tr>
+                    <tr>
+                        <td>set-message-rate</td>
+                        <td>Définir l'XP gagné par tranche de messages (ex: 10 XP tous les 5 msg).</td>
+                    </tr>
+                    <tr>
+                        <td>set-voice</td>
+                        <td>Définir l'XP gagné par temps vocal (ex: 20 XP toutes les 15 min).</td>
+                    </tr>
+                    <tr>
+                        <td>set-difficulty</td>
+                        <td>Ajuster la courbe de progression (Facile, Normal, Difficile).</td>
+                    </tr>
+                    <tr>
+                        <td>set-channel</td>
+                        <td>Définir où les messages de "Level Up" sont envoyés.</td>
+                    </tr>
+                </table>
             </div>
-            <p>Récompensez vos membres avec des rôles automatiques.</p>
-            <ul>
-                <li><code>/xp-roles add</code> : Créer une récompense (ex: Rôle "Habitué" au niveau 10).</li>
-                <li><code>/xp-roles list</code> : Voir toutes les récompenses actives.</li>
-                <li><code>/xp-roles remove</code> : Supprimer une récompense.</li>
-            </ul>
-        </div>
-    </section>
 
-    <!-- PAGE: SUGGESTIONS -->
-    <section id="suggestions" class="page">
-        <h1 class="page-title">Système de Suggestions</h1>
-        <p class="page-subtitle">Écoutez votre communauté et votez.</p>
-
-        <h2>Utilisation</h2>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge" style="background: #3b82f6;">PUBLIC</span>
-                <code>/suggestion</code>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">REWARDS</span>
+                    <code>/xp-roles</code>
+                </div>
+                <p>Récompensez vos membres avec des rôles automatiques.</p>
+                <ul>
+                    <li><code>/xp-roles add</code> : Créer une récompense (ex: Rôle "Habitué" au niveau 10).</li>
+                    <li><code>/xp-roles list</code> : Voir toutes les récompenses actives.</li>
+                    <li><code>/xp-roles remove</code> : Supprimer une récompense.</li>
+                </ul>
             </div>
-            <p>Poste une nouvelle idée dans le salon dédié.</p>
-            <p><em>Le bot crée automatiquement un sondage (👍/👎) et des boutons pour que le staff puisse
-                    Accepter/Refuser avec une raison.</em></p>
-        </div>
+        </section>
 
-        <h2>Configuration</h2>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge">CONFIG</span>
-                <code>/config-suggestions</code>
+        <!-- PAGE: SUGGESTIONS -->
+        <section id="suggestions" class="page">
+            <h1 class="page-title">Système de Suggestions</h1>
+            <p class="page-subtitle">Écoutez votre communauté et votez.</p>
+
+            <h2>Utilisation</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge" style="background: #3b82f6;">PUBLIC</span>
+                    <code>/suggestion</code>
+                </div>
+                <p>Poste une nouvelle idée dans le salon dédié.</p>
+                <p><em>Le bot crée automatiquement un sondage (👍/👎) et des boutons pour que le staff puisse
+                        Accepter/Refuser avec une raison.</em></p>
             </div>
-            <p>Paramétrez le module.</p>
-            <table class="params-table">
-                <tr>
-                    <th>Sous-commande</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>set-channel</td>
-                    <td>Définir le salon où les suggestions apparaissent.</td>
-                </tr>
-                <tr>
-                    <td>set-role</td>
-                    <td>(Optionnel) Restreindre la commande `/suggestion` à un rôle spécifique.</td>
-                </tr>
-            </table>
-        </div>
-    </section>
 
-    <!-- PAGE: PRIME PRO+ VOICE -->
-    <section id="voice" class="page">
-        <h1 class="page-title">Prime Pro+ Voice</h1>
-        <p class="page-subtitle">Salons vocaux temporaires autogérés.</p>
-
-        <div class="command-card alert-card info">
-            <h3 style="margin-top:0;">🎙️ Concept</h3>
-            <p>Plus besoin de créer 50 salons vocaux vides. Les membres créent leur propre salon en un clic, le gèrent,
-                et il se supprime quand il est vide.</p>
-        </div>
-
-        <h2>Installation</h2>
-        <div class="command-card">
-            <div class="command-header">
-                <span class="badge">SETUP</span>
-                <code>/setup-voice</code>
+            <h2>Configuration</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CONFIG</span>
+                    <code>/config-suggestions</code>
+                </div>
+                <p>Paramétrez le module.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Sous-commande</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>set-channel</td>
+                        <td>Définir le salon où les suggestions apparaissent.</td>
+                    </tr>
+                    <tr>
+                        <td>set-role</td>
+                        <td>(Optionnel) Restreindre la commande `/suggestion` à un rôle spécifique.</td>
+                    </tr>
+                </table>
             </div>
-            <p>Installe le panneau de création (Bouton "Créer mon salon").</p>
-            <p><strong>Paramètre Requis :</strong> <code>categorie</code> (La catégorie où les salons temporaires seront
-                créés).</p>
-        </div>
+        </section>
 
-        <h2>Interface de Gestion</h2>
-        <div class="command-card">
-            <p>Une fois dans leur salon, les créateurs ont accès à une interface (Embed + Boutons) pour :</p>
-            <ul>
-                <li>🔒 <strong>Verrouiller :</strong> Empêcher de nouvelles personnes de rejoindre.</li>
-                <li>🔓 <strong>Déverrouiller :</strong> Rouvrir le salon.</li>
-                <li>👢 <strong>Kick :</strong> Expulser un membre indésirable.</li>
-            </ul>
-        </div>
+        <!-- PAGE: PRIME PRO+ VOICE -->
+        <section id="voice" class="page">
+            <h1 class="page-title">Prime Pro+ Voice</h1>
+            <p class="page-subtitle">Salons vocaux temporaires autogérés.</p>
 
-        <div class="command-card alert-card warning">
-            <h3 style="margin-top:0;">Suppression Automatique</h3>
-            <p>Les salons se suppriment instantanément dès qu'ils sont **totalement vides** (0 personnes dedans).</p>
-        </div>
-    </section>
+            <div class="command-card alert-card info">
+                <h3 style="margin-top:0;">🎙️ Concept</h3>
+                <p>Plus besoin de créer 50 salons vocaux vides. Les membres créent leur propre salon en un clic, le
+                    gèrent,
+                    et il se supprime quand il est vide.</p>
+            </div>
+
+            <h2>Installation</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">SETUP</span>
+                    <code>/setup-voice</code>
+                </div>
+                <p>Installe le panneau de création (Bouton "Créer mon salon").</p>
+                <p><strong>Paramètre Requis :</strong> <code>categorie</code> (La catégorie où les salons temporaires
+                    seront
+                    créés).</p>
+            </div>
+
+            <h2>Interface de Gestion</h2>
+            <div class="command-card">
+                <p>Une fois dans leur salon, les créateurs ont accès à une interface (Embed + Boutons) pour :</p>
+                <ul>
+                    <li>🔒 <strong>Verrouiller :</strong> Empêcher de nouvelles personnes de rejoindre.</li>
+                    <li>🔓 <strong>Déverrouiller :</strong> Rouvrir le salon.</li>
+                    <li>👢 <strong>Kick :</strong> Expulser un membre indésirable.</li>
+                </ul>
+            </div>
+
+            <div class="command-card alert-card warning">
+                <h3 style="margin-top:0;">Suppression Automatique</h3>
+                <p>Les salons se suppriment instantanément dès qu'ils sont **totalement vides** (0 personnes dedans).
+                </p>
+            </div>
+        </section>
     </main>
 
     <script>
