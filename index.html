@@ -430,6 +430,24 @@
             font-family: monospace;
         }
 
+        /* Lists in cards */
+        .command-card ul,
+        .command-card ol {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .command-card li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .command-card li code {
+            margin-right: 8px;
+            /* Space between code and text if needed */
+        }
+
         /* Hero Section */
         .hero-banner {
             text-align: center;
@@ -931,19 +949,18 @@
                     ticket.</p>
             </div>
 
-            <div class="command-card"
-                style="border: 1px solid rgba(255, 100, 100, 0.3); background: rgba(255, 0, 0, 0.05);">
+            <div class="command-card alert-card danger">
                 <div class="command-header">
-                    <ion-icon name="bug-outline" style="color: #ff5555; font-size: 1.5rem;"></ion-icon>
-                    <h3 style="margin:0; color: #ff5555;">En cas d'erreur</h3>
+                    <ion-icon name="bug-outline" style="font-size: 1.5rem;"></ion-icon>
+                    <h3 style="margin:0;">En cas d'erreur</h3>
                 </div>
-                <p><strong>"Missing Permissions" (50013) :</strong> Le bot n'a pas le droit de créer ou modifier le
+                <p><strong>Problème de permissions :</strong> Le bot n'a pas le droit de créer ou modifier le
                     salon.</p>
                 <p>👉 Vérifiez que le bot a bien "Gérer les salons" et "Gérer les permissions" sur la
                     <strong>Catégorie</strong>.
                 </p>
                 <br>
-                <p><strong>"Missing Access" (50001) :</strong> Le bot ne voit pas le salon des logs.</p>
+                <p><strong>Problème d'accès :</strong> Le bot ne voit pas le salon des logs.</p>
                 <p>👉 Vérifiez que le bot a bien "Voir le salon" et "Envoyer des messages" sur le salon
                     <strong>Logs</strong>.
                 </p>
