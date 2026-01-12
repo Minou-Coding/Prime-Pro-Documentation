@@ -8,301 +8,368 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <style>
         :root {
-            --bg-color: #08090c;
+            /* Core Palette */
+            --bg-deep: #030304;
+            --bg-surface: #0a0a0c;
+            --primary: #D4AF37;
+            --primary-dim: rgba(212, 175, 55, 0.1);
+            --primary-glow: rgba(212, 175, 55, 0.4);
+
+            /* Text */
+            --text-main: #ffffff;
+            --text-muted: #888899;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(20, 20, 25, 0.6);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+            /* Functional */
+            --success: #10B981;
+            --danger: #F43F5E;
+            --info: #3B82F6;
+
             --sidebar-width: 280px;
-            --surface-color: rgba(26, 28, 35, 0.6);
-            --surface-hover: rgba(36, 39, 49, 0.8);
-            --primary-color: #d4af37;
-            /* Gold */
-            --primary-glow: rgba(212, 175, 55, 0.3);
-            --text-color: #ffffff;
-            --text-secondary: #a0a0a0;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #f3e5ab 100%);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) var(--bg-color);
+            outline: none;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
             height: 100vh;
             overflow: hidden;
-            /* Dynamic Background */
+            display: flex;
             background-image:
-                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(100, 100, 255, 0.05) 0%, transparent 25%);
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(100, 100, 255, 0.05) 0%, transparent 40%);
         }
 
-        /* Animated Mesh Background (Pseudo-element) */
-        body::before {
-            content: '';
+        /* Ambient Noise Overlay */
+        body::after {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-            z-index: -1;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
+            z-index: 999;
+            opacity: 0.4;
         }
 
         /* --- SIDEBAR --- */
         aside {
             width: var(--sidebar-width);
-            background: rgba(15, 16, 20, 0.85);
+            background: rgba(10, 10, 12, 0.7);
             backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: var(--glass-border);
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            padding: 25px;
             z-index: 100;
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 25px;
-            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .brand img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 15px var(--primary-glow);
-            transition: transform 0.3s ease;
-        }
-
-        .brand:hover img {
-            transform: rotate(360deg);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px var(--primary-glow);
+            border: 1px solid var(--primary);
         }
 
         .brand h1 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            background: var(--accent-gradient);
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        nav h3 {
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin: 25px 0 10px 10px;
+            font-weight: 600;
         }
 
         nav button {
             width: 100%;
             background: transparent;
             border: none;
-            padding: 14px 18px;
-            text-align: left;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
             font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
             position: relative;
-            overflow: hidden;
         }
 
         nav button:hover {
-            background: var(--surface-hover);
             color: #fff;
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
         }
 
         nav button.active {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--primary-color);
-            font-weight: 600;
-            box-shadow: inset 3px 0 0 var(--primary-color);
+            color: #fff;
+            background: var(--primary-dim);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        nav button.active::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 0 4px 4px 0;
+            opacity: 0;
+            /* Hidden by default, useful for mobile */
+        }
+
+        nav button ion-icon {
+            font-size: 1.1rem;
+            color: #666;
+            /* Default icon color */
+            transition: 0.3s;
         }
 
         nav button.active ion-icon {
-            color: #fff;
-            filter: drop-shadow(0 0 5px var(--primary-color));
-        }
-
-        nav h3 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-            margin: 25px 0 10px;
-            padding-left: 10px;
-            letter-spacing: 1.5px;
-            font-weight: 700;
+            color: var(--primary);
+            filter: drop-shadow(0 0 8px var(--primary-glow));
         }
 
         .sidebar-footer {
             margin-top: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn-sidebar {
-            background: var(--surface-color);
-            color: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s ease;
-            border: var(--glass-border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-sidebar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-sidebar:hover::before {
-            left: 100%;
+            padding: 12px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: 0.3s;
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+            border: none;
         }
 
         .btn-sidebar:hover {
-            background: var(--surface-hover);
             transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            background: #e5bd3d;
         }
 
-        .btn-invite {
-            background: var(--accent-gradient);
-            color: #000;
-            border: none;
-            box-shadow: 0 4px 15px var(--primary-glow);
-        }
-
-        .btn-invite:hover {
-            box-shadow: 0 6px 20px var(--primary-glow);
-            transform: translateY(-2px) scale(1.02);
-            background: linear-gradient(135deg, #e5c14d 0%, #fff0b8 100%);
+        .btn-sidebar ion-icon {
+            font-size: 1.2rem;
+            color: #000 !important;
         }
 
         /* --- MAIN CONTENT --- */
         main {
             flex: 1;
+            padding: 40px 60px;
             overflow-y: auto;
-            padding: 50px;
-            position: relative;
+            perspective: 1000px;
         }
 
-        /* Pages */
+        /* utilities */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-50 {
+            margin-top: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        /* Alerts */
+        .alert-card {
+            border-left: 4px solid var(--primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .alert-card.success {
+            border-color: var(--success);
+        }
+
+        .alert-card.success h3 {
+            color: var(--success);
+        }
+
+        .alert-card.danger {
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-left: 1px solid rgba(244, 63, 94, 0.3);
+            /* Override left border */
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        .alert-card.danger h3,
+        .alert-card.danger ion-icon {
+            color: var(--danger) !important;
+        }
+
+        .alert-card.warning {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .alert-card.warning h3,
+        .alert-card.warning ion-icon {
+            color: var(--primary) !important;
+        }
+
+        .alert-card.info {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-left: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .alert-card.info h3,
+        .alert-card.info ion-icon {
+            color: var(--info) !important;
+        }
+
+        /* Scrollbar */
+        main::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        main::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        main::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        main::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .page {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             display: none;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateY(10px) scale(0.98);
+            transition: all 0.5s var(--ease-out);
         }
 
         .page.active {
             display: block;
             opacity: 1;
-            transform: translateY(0);
-            animation: fadInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform: translateY(0) scale(1);
         }
 
-        @keyframes fadInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* Headers */
         h1.page-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #bbb);
+            background: linear-gradient(to right, #ffffff, #888);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
         }
 
         p.page-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 50px;
-            border-left: 3px solid var(--primary-color);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
             padding-left: 15px;
+            border-left: 2px solid var(--primary);
         }
 
         h2 {
-            font-size: 1.8rem;
-            margin: 50px 0 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
+            font-size: 1.5rem;
             color: #fff;
+            margin: 50px 0 25px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         h2 ion-icon {
-            color: var(--primary-color);
+            color: var(--primary);
         }
 
-        /* Command Cards */
+        /* Cards */
         .command-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: var(--glass-border);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
+            padding: 24px;
+            margin-bottom: 20px;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
         .command-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(212, 175, 55, 0.3);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .command-header {
@@ -313,168 +380,151 @@
         }
 
         .badge {
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
-            color: var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         code {
-            background: #111;
-            padding: 4px 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #e2e8f0;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .params-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            font-size: 0.95rem;
             margin-top: 15px;
         }
 
         .params-table th {
             text-align: left;
-            color: #888;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
             padding: 10px 15px;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .params-table td {
             padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             color: #ccc;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .params-table tr:last-child td {
-            border-bottom: none;
+            font-size: 0.95rem;
         }
 
         .params-table td:first-child {
-            color: var(--primary-color);
+            color: var(--primary);
             font-family: monospace;
-            font-weight: 600;
         }
 
-        /* Hero Home */
+        /* Hero Section */
         .hero-banner {
             text-align: center;
             padding: 80px 0;
             position: relative;
         }
 
-        /* Glorious Glow behind hero */
-        .hero-banner::after {
+        .hero-banner::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: var(--primary-color);
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
             filter: blur(150px);
             opacity: 0.15;
             z-index: -1;
-            animation: pulse 5s infinitealternate;
+            animation: breathe 6s infinite ease-in-out;
         }
 
-        @keyframes pulse {
-            0% {
-                opacity: 0.15;
-                transform: translate(-50%, -50%) scale(1);
+        @keyframes breathe {
+
+            0%,
+            100% {
+                opacity: 0.1;
+                transform: translate(-50%, -50%) scale(0.9);
             }
 
             50% {
-                opacity: 0.25;
+                opacity: 0.2;
                 transform: translate(-50%, -50%) scale(1.1);
-            }
-
-            100% {
-                opacity: 0.15;
-                transform: translate(-50%, -50%) scale(1);
             }
         }
 
         .hero-banner img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
             margin-bottom: 30px;
-            border: 3px solid var(--primary-color);
-            box-shadow: 0 0 50px var(--primary-glow);
-            animation: floating 4s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .hero-banner h1 {
-            font-size: 4rem;
-            background: var(--accent-gradient);
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
         }
 
         .btn-large {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px 45px;
-            background: var(--accent-gradient);
+            gap: 15px;
+            padding: 16px 40px;
+            background: var(--primary);
             color: #000;
             font-weight: 700;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 1.1rem;
-            margin-top: 40px;
+            margin-top: 30px;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px -5px var(--primary-glow);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
         }
 
         .btn-large:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px -10px var(--primary-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
 
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
+            aside {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 20px;
+            }
 
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 10px;
-        }
+            main {
+                padding: 30px 20px;
+            }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-color);
+            .hero-banner h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -513,7 +563,7 @@
 
         <div class="sidebar-footer">
             <a href="https://discord.gg/fSdcbuWwTp" target="_blank" class="btn-sidebar">
-                <ion-icon name="logo-discord" style="color: #5865F2;"></ion-icon> Prime Communauté
+                <ion-icon name="logo-discord"></ion-icon> Prime Communauté
             </a>
             <a href="https://discord.com/oauth2/authorize?client_id=1459752987378323548&permissions=8&scope=bot%20applications.commands"
                 target="_blank" class="btn-sidebar btn-invite">
@@ -530,9 +580,9 @@
             <div class="hero-banner">
                 <img src="https://i.ibb.co/ZzxjZCWW/6b98d931ff0e.png" alt="Prime Pro+">
                 <h1>PRIME PRO+</h1>
-                <p style="font-size: 1.5rem; color: #fff; font-weight: 300;">L'EXPERIENCE ULTIME POUR VOTRE SERVEUR</p>
-                <div style="width: 60px; height: 3px; background: var(--primary-color); margin: 20px auto;"></div>
-                <p style="max-width: 600px; margin: 0 auto; color: #aaa; line-height: 1.6;">
+                <p style="font-size: 1.5rem; opacity: 0.9; font-weight: 300; margin-bottom: 20px;">L'EXPERIENCE ULTIME
+                    POUR VOTRE SERVEUR</p>
+                <p style="max-width: 600px; margin: 0 auto; color: var(--text-muted); line-height: 1.6;">
                     Bienvenue dans la documentation officielle de Prime Pro+.
                     <br>Explorez nos modules et configurez votre bot en quelques clics.
                 </p>
@@ -542,13 +592,12 @@
                 </a>
             </div>
 
-            <div style="margin-top: 80px;">
+            <div class="mt-50">
                 <h2 style="justify-content: center; border:0;">Fonctionnalités Clés</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="features-grid">
                     <div class="command-card">
                         <div class="command-header">
-                            <ion-icon name="cube-outline"
-                                style="font-size: 2rem; color: var(--primary-color);"></ion-icon>
+                            <ion-icon name="cube-outline" style="font-size: 2rem; color: var(--primary);"></ion-icon>
                             <h3 style="margin:0;">Modulaire</h3>
                         </div>
                         <p>Tout est optionnel. Activez uniquement ce dont vous avez besoin pour garder votre serveur
@@ -557,7 +606,7 @@
                     <div class="command-card">
                         <div class="command-header">
                             <ion-icon name="lock-closed-outline"
-                                style="font-size: 2rem; color: var(--primary-color);"></ion-icon>
+                                style="font-size: 2rem; color: var(--primary);"></ion-icon>
                             <h3 style="margin:0;">Sécurisé</h3>
                         </div>
                         <p>Système anti-raid, vérification complète et isolation stricte des configurations entre les
@@ -585,13 +634,52 @@
                 </a>
             </div>
 
-            <h2><ion-icon name="settings-outline"></ion-icon> 2. Premiers Pas</h2>
-            <p>Une fois le bot sur votre serveur, il est silencieux par défaut. Réveillez-le avec ces commandes :</p>
-            <div class="command-card">
+            <div class="command-card alert-card danger">
+                <div class="command-header">
+                    <ion-icon name="warning-outline" style="font-size: 1.5rem;"></ion-icon>
+                    <h3 style="margin:0;">Point Crucial : Hiérarchie des Rôles</h3>
+                </div>
+                <p><strong>Attention :</strong> Même Administrateur, le bot ne peut pas gérer un rôle situé
+                    <u>au-dessus</u> du sien.
+                </p>
+                <p>Allez dans <em>Paramètres du Serveur > Rôles</em> et glissez le rôle <strong>Prime Pro+</strong> tout
+                    en haut de la liste (au-dessus du rôle <em>Vérifié</em> ou des rôles à donner).</p>
+            </div>
+
+            <h2><ion-icon name="settings-outline"></ion-icon> 2. Premiers Pas (Méthode Obligatoire)</h2>
+            <p>Le bot Prime Pro+ utilise un système sécurisé en deux étapes. <strong>Vous devez suivre cet ordre
+                    :</strong></p>
+
+            <div class="command-card alert-card danger">
+                <div class="command-header">
+                    <ion-icon name="warning-outline" style="font-size: 1.5rem;"></ion-icon>
+                    <h3 style="margin:0;">Règle d'Or : La Hiérarchie</h3>
+                </div>
+                <p>Pour que le bot puisse donner un rôle (Vérifié, Notification, etc.), son propre rôle <strong>Prime
+                        Pro+</strong> doit être placé <strong>physiquement au-dessus</strong> des rôles qu'il doit
+                    donner dans la liste de Discord.</p>
+                <p><em>Exemple : Si le bot doit donner le rôle "Membre", le rôle "Prime Pro+" doit être au-dessus de
+                        "Membre".</em></p>
+                <p>👉 <strong>Si vous oubliez ça, vous aurez une erreur "Missing Permissions".</strong></p>
+            </div>
+
+            <div class="command-card alert-card">
+                <h3 style="margin-top:0; color: var(--primary);">Étape 1 : Configuration</h3>
+                <p>Définissez d'abord vos préférences (rôles, salons, textes) pour que le bot sache quoi faire.</p>
                 <ul>
-                    <li style="margin-bottom: 10px;"><code>/setup</code> : Lance l'installation de base (Vérification).
-                    </li>
-                    <li style="margin-bottom: 10px;"><code>/setup-tickets</code> : Installe le support ticket.</li>
+                    <li><code>/config-verification</code> : Définir les rôles vérifié/non-vérifié.</li>
+                    <li><code>/config-tickets</code> : Définir la catégorie et les logs tickets.</li>
+                    <li><code>/config-roles</code> : Définir le style et le rôle requis.</li>
+                </ul>
+            </div>
+
+            <div class="command-card alert-card success">
+                <h3 style="margin-top:0;">Étape 2 : Installation</h3>
+                <p>Une fois configuré, lancez l'installation pour déployer les messages dans vos salons.</p>
+                <ul>
+                    <li><code>/setup-verification</code> : Installe le panel de vérification.</li>
+                    <li><code>/setup-tickets</code> : Installe le panel de support.</li>
+                    <li><code>/setup-roles</code> : Installe le panel de rôles.</li>
                 </ul>
             </div>
         </section>
@@ -601,64 +689,77 @@
             <h1 class="page-title">Système de Vérification</h1>
             <p class="page-subtitle">Le bouclier anti-raid ultime pour votre serveur.</p>
 
+            <h2>🚀 Guide d'Installation (Débutant)</h2>
+            <div class="command-card alert-card success">
+                <h3 style="margin-top:0;">Étape 1 : Les Rôles</h3>
+                <ol style="margin-left: 20px; color: #ccc; line-height: 1.6;">
+                    <li>Créez un rôle <strong>Vérifié</strong> (donne accès au serveur).</li>
+                    <li>Créez un rôle <strong>Non-Vérifié</strong> (restreint l'accès).</li>
+                    <li><strong>CRUCIAL :</strong> Placez le rôle du Bot <em>tout en haut</em> de ces deux rôles.</li>
+                </ol>
+            </div>
+
+            <div class="command-card alert-card success">
+                <h3 style="margin-top:0;">Étape 2 : Le Salon de Vérification</h3>
+                <ol style="margin-left: 20px; color: #ccc; line-height: 1.6;">
+                    <li>Créez un salon <code>#vérification</code>.</li>
+                    <li>
+                        <strong>Permissions du Salon (Clic Droit -> Modifier -> Permissions) :</strong>
+                        <ul style="margin-left: 20px; color: #fff;">
+                            <li>✅ <strong>@everyone</strong> : Voir le salon (Non), Envoyer des messages (Non).</li>
+                            <li>✅ <strong>Role Non-Vérifié</strong> : Voir le salon (Oui), Envoyer des messages (Non).
+                            </li>
+                            <li>✅ <strong>Role Vérifié</strong> : Voir le salon (Non) (optionnel, pour cacher le salon
+                                une fois vérifié).</li>
+                            <li>✅ <strong>Bot Prime Pro+</strong> : Voir le salon, Envoyer des messages, Gérer les
+                                messages, Intégrer des liens.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
             <h2>Commandes</h2>
 
             <div class="command-card">
                 <div class="command-header">
-                    <span class="badge">SETUP</span>
-                    <code>/setup</code>
-                </div>
-                <p>La commande magique. Elle configure :</p>
-                <ul style="margin-left: 20px; color: #aaa;">
-                    <li>Les rôles <strong>Vérifié</strong> et <strong>Non Vérifié</strong>.</li>
-                    <li>Le salon <strong>#verification</strong>.</li>
-                    <li>Les permissions des salons pour rendre le serveur privé.</li>
-                </ul>
-            </div>
-
-            <div class="command-card">
-                <div class="command-header">
                     <span class="badge">CONFIG</span>
-                    <code>/config verification</code>
+                    <code>/config-verification</code>
                 </div>
                 <p>Modifier les rôles utilisés par le système.</p>
                 <table class="params-table">
                     <tr>
-                        <th>Paramètre</th>
+                        <th>Option</th>
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <td>unverified-role</td>
-                        <td>Rôle donné à l'arrivée.</td>
+                        <td>unverified</td>
+                        <td>Rôle de départ (restreint).</td>
                     </tr>
                     <tr>
-                        <td>verified-role</td>
-                        <td>Rôle donné après validation.</td>
+                        <td>verified</td>
+                        <td>Rôle final (donne l'accès).</td>
+                    </tr>
+                    <tr>
+                        <td>image_url</td>
+                        <td>(Optionnel) Bannière personnalisée.</td>
+                    </tr>
+                    <tr>
+                        <td>logo_url</td>
+                        <td>(Optionnel) Petit logo en bas.</td>
                     </tr>
                 </table>
             </div>
 
             <div class="command-card">
                 <div class="command-header">
-                    <span class="badge">VISUAL</span>
-                    <code>/config images</code>
+                    <span class="badge" style="background: #4caf50;">ACTION</span>
+                    <code>/setup-verification</code>
                 </div>
-                <p>Changer l'apparence de l'embed de vérification.</p>
-                <table class="params-table">
-                    <tr>
-                        <th>Paramètre</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>image</td>
-                        <td>URL de l'image principale (bannière).</td>
-                    </tr>
-                    <tr>
-                        <td>logo</td>
-                        <td>URL de la petite icône (footer).</td>
-                    </tr>
-                </table>
+                <p>Une fois tout configuré, lancez cette commande dans le salon <code>#vérification</code> pour afficher
+                    le bouton.</p>
             </div>
+
+
         </section>
 
         <!-- PAGE: ROLES -->
@@ -666,29 +767,84 @@
             <h1 class="page-title">Rôles & Réactions</h1>
             <p class="page-subtitle">Créez des menus interactifs pour vos membres.</p>
 
+            <div class="command-card"
+                style="border: 1px solid rgba(100, 100, 255, 0.3); background: rgba(0, 0, 255, 0.05);">
+                <div class="command-header">
+                    <ion-icon name="help-buoy-outline" style="color: #aaaaff; font-size: 1.5rem;"></ion-icon>
+                    <h3 style="margin:0; color: #aaaaff;">Dépannage "Rôle non donné"</h3>
+                </div>
+                <p>Si vous cliquez sur le bouton et que rien ne se passe (ou erreur "Interaction Failed") :</p>
+                <ol style="margin-left: 20px; color: #ccc;">
+                    <li><strong>Hiérarchie :</strong> Le rôle du Bot est-il bien AU-DESSUS du rôle à donner ?</li>
+                    <li><strong>Permissions :</strong> Le Bot a-t-il la permission "Gérer les rôles" ?</li>
+                    <li><strong>Admin :</strong> Le rôle à donner est-il un rôle "Admin" ? (Le bot ne peut pas donner
+                        d'admin s'il ne l'est pas lui-même).</li>
+                </ol>
+            </div>
+
             <h2>Création</h2>
             <div class="command-card">
                 <div class="command-header">
                     <span class="badge">ADD</span>
-                    <code>/config-roles add-button</code>
+                    <code>/roles-ajouter</code>
                 </div>
-                <p>Ajoute un nouveau choix de rôle dans votre configuration.</p>
+                <p>Ajoute un bouton au futur menu de rôles.</p>
                 <table class="params-table">
                     <tr>
-                        <th>Paramètre</th>
+                        <th>Option</th>
                         <th>Description</th>
                     </tr>
                     <tr>
                         <td>role</td>
-                        <td>Le rôle à attribuer.</td>
+                        <td>Le rôle à donner/retirer.</td>
                     </tr>
                     <tr>
                         <td>label</td>
-                        <td>Texte sur le bouton.</td>
+                        <td>Texte écrit sur le bouton.</td>
                     </tr>
                     <tr>
                         <td>emoji</td>
-                        <td>(Optionnel) Emoji sur le bouton.</td>
+                        <td>(Optionnel) Petite image sur le bouton.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">REMOVE</span>
+                    <code>/roles-retirer</code>
+                </div>
+                <p>Supprime un bouton que vous ne voulez plus.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>role</td>
+                        <td>Le rôle du bouton à supprimer.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CONFIG</span>
+                    <code>/config-roles</code>
+                </div>
+                <p>Paramètres globaux du panel.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>required_role</td>
+                        <td>(Optionnel) Restreindre l'accès à un rôle.</td>
+                    </tr>
+                    <tr>
+                        <td>image_url</td>
+                        <td>Bannière du panel.</td>
                     </tr>
                 </table>
             </div>
@@ -696,9 +852,9 @@
             <div class="command-card">
                 <div class="command-header">
                     <span class="badge">DEPLOY</span>
-                    <code>/setup-panel</code>
+                    <code>/setup-roles</code>
                 </div>
-                <p>Fait apparaître le menu de sélection des rôles dans le salon actuel.</p>
+                <p>Affiche le menu complet (avec tous les boutons ajoutés) dans le salon.</p>
             </div>
         </section>
 
@@ -707,38 +863,90 @@
             <h1 class="page-title">Support & Tickets</h1>
             <p class="page-subtitle">Offrez un support client de niveau professionnel.</p>
 
+            <div class="command-card alert-card">
+                <h3 style="margin-top:0; color: var(--primary);">🚀 Guide d'Installation (Débutant)</h3>
+                <p>Suivez ces étapes dans l'ordre pour éviter toute erreur de permission.</p>
+                <ol style="margin-left: 20px; line-height: 1.8; color: #ccc;">
+                    <li><strong>Dans Discord</strong> : Créez une catégorie nommée "TICKETS".</li>
+                    <li><strong>Dans Discord</strong> : Créez un salon textuel nommé "logs-tickets" (pour les archives).
+                    </li>
+                    <li>
+                        <strong>IMPORTANT - Permissions :</strong>
+                        <br>Faites un clic droit sur la catégorie "TICKETS" -> <em>Modifier la catégorie</em> ->
+                        <em>Permissions</em>.
+                        <br>Ajoutez le rôle du bot (ou le bot lui-même).
+                        <br><strong>COCHEZ CES CASES :</strong>
+                        <ul style="margin-left: 20px; color: #fff;">
+                            <li>✅ Voir les salons</li>
+                            <li>✅ Gérer les salons (Manage Channels)</li>
+                            <li>✅ Gérer les permissions (Manage Roles)</li>
+                            <li>✅ Envoyer des messages</li>
+                            <li>✅ Joindre des fichiers (Attach Files)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Configuration du Bot</h2>
             <div class="command-card">
                 <div class="command-header">
-                    <span class="badge">INSTALL</span>
-                    <code>/setup-tickets</code>
+                    <span class="badge">ÉTAPE 1</span>
+                    <code>/config-tickets general</code>
                 </div>
-                <p>Installe le panneau de création de tickets.</p>
+                <p>Liez les salons que vous venez de créer à la mémoire du bot.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>categorie</td>
+                        <td>Sélectionnez la catégorie "TICKETS" créée.</td>
+                    </tr>
+                    <tr>
+                        <td>transcript</td>
+                        <td>Sélectionnez le salon "logs-tickets" créé.</td>
+                    </tr>
+                    <tr>
+                        <td>limit</td>
+                        <td>Nombre max de tickets par personne (défaut: 1).</td>
+                    </tr>
+                </table>
             </div>
 
             <div class="command-card">
                 <div class="command-header">
-                    <span class="badge">SETTINGS</span>
-                    <code>/config-tickets</code>
+                    <span class="badge">STAFF</span>
+                    <code>/config-tickets add-role</code>
                 </div>
-                <p>Configurez le comportement des tickets.</p>
-                <table class="params-table">
-                    <tr>
-                        <th>Sous-commande</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>set-category</td>
-                        <td>Catégorie où s'ouvrent les tickets.</td>
-                    </tr>
-                    <tr>
-                        <td>set-logs</td>
-                        <td>Salon pour l'historique (transcripts).</td>
-                    </tr>
-                    <tr>
-                        <td>add-support</td>
-                        <td>Ajouter un rôle Staff autorisé à répondre.</td>
-                    </tr>
-                </table>
+                <p>Ajoutez le rôle de vos Modérateurs (sinon ils ne verront pas les tickets !).</p>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge" style="background: #4caf50;">ÉTAPE 2</span>
+                    <code>/setup-tickets</code>
+                </div>
+                <p>C'est fini ! Lancez cette commande dans le salon où les membres doivent cliquer pour ouvrir un
+                    ticket.</p>
+            </div>
+
+            <div class="command-card"
+                style="border: 1px solid rgba(255, 100, 100, 0.3); background: rgba(255, 0, 0, 0.05);">
+                <div class="command-header">
+                    <ion-icon name="bug-outline" style="color: #ff5555; font-size: 1.5rem;"></ion-icon>
+                    <h3 style="margin:0; color: #ff5555;">En cas d'erreur</h3>
+                </div>
+                <p><strong>"Missing Permissions" (50013) :</strong> Le bot n'a pas le droit de créer ou modifier le
+                    salon.</p>
+                <p>👉 Vérifiez que le bot a bien "Gérer les salons" et "Gérer les permissions" sur la
+                    <strong>Catégorie</strong>.
+                </p>
+                <br>
+                <p><strong>"Missing Access" (50001) :</strong> Le bot ne voit pas le salon des logs.</p>
+                <p>👉 Vérifiez que le bot a bien "Voir le salon" et "Envoyer des messages" sur le salon
+                    <strong>Logs</strong>.
+                </p>
             </div>
         </section>
 
@@ -746,6 +954,20 @@
         <section id="accueil" class="page">
             <h1 class="page-title">Logs & Accueil</h1>
             <p class="page-subtitle">Gérez les arrivées et les départs avec élégance.</p>
+
+            <div class="command-card alert-card danger">
+                <h3 style="margin-top:0;">⚠️ Permissions Requises (Images)</h3>
+                <p>Le bot génère des images personnalisées. Pour qu'elles s'affichent, le bot <strong>DOIT</strong>
+                    avoir ces permissions sur le salon de bienvenue :</p>
+                <ul style="margin-left: 20px; color: #fff;">
+                    <li>✅ Voir le salon</li>
+                    <li>✅ Envoyer des messages</li>
+                    <li>✅ <strong>Joindre des fichiers (Attach Files)</strong> <-- INDISPENSABLE pour l'image</li>
+                    <li>✅ <strong>Intégrer des liens (Embed Links)</strong></li>
+                </ul>
+                <p><em>Sans "Joindre des fichiers", le bot enverra le texte mais l'image échouera silencieusement ou
+                        fera une erreur.</em></p>
+            </div>
 
             <h2>Configuration</h2>
             <div class="command-card">
@@ -777,6 +999,33 @@
             <div class="command-card">
                 <p><strong>Note sur les Images :</strong> Le bot génère automatiquement une image de bienvenue incluant
                     l'avatar du membre. Utilisez une image de fond de haute qualité (1024x500 recommandé).</p>
+                <div class="command-card alert-card warning">
+                    <div class="command-header">
+                        <ion-icon name="alert-circle-outline" style="font-size: 1.5rem;"></ion-icon>
+                        <h3 style="margin:0;">Important : Nom du Serveur</h3>
+                    </div>
+                    <p style="margin-top: 10px; color: #ffd;">
+                        Le générateur d'image ne supporte pas les accents ou caractères spéciaux dans le <strong>Nom du
+                            Serveur</strong>.
+                        <br>Si votre serveur s'appelle "Communauté", l'image affichera "Communaute".
+                        <br>Évitez les émojis ou caractères complexes dans le nom du discord pour un rendu optimal.
+                    </p>
+                </div>
+
+                <div class="command-card alert-card info">
+                    <div class="command-header">
+                        <ion-icon name="information-circle-outline" style="font-size: 1rem;"></ion-icon>
+                        <h3 style="margin:0;">Note : Pseudo & Caractères Spéciaux</h3>
+                    </div>
+                    <p style="margin-top: 10px; color: #ddeeff;">
+                        Si le pseudo d'un membre contient des polices spéciales (ex: 𝒫𝓈𝑒𝓊𝒹𝑜) ou des caractères non
+                        reconnus,
+                        <strong>il se peut qu'il n'apparaisse pas sur l'image</strong>.
+                        <br>✅ Cependant, le bot le mentionnera toujours correctement dans le message texte (ex:
+                        Bienvenue @Pseudo).
+                        <br>C'est une limitation technique pour garantir la génération rapide de l'image.
+                    </p>
+                </div>
             </div>
         </section>
 
