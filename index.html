@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Pro+ | Documentation Officielle</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #08090c;
+            --sidebar-width: 280px;
+            --surface-color: rgba(26, 28, 35, 0.6);
+            --surface-hover: rgba(36, 39, 49, 0.8);
+            --primary-color: #d4af37;
+            /* Gold */
+            --primary-glow: rgba(212, 175, 55, 0.3);
+            --text-color: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #f3e5ab 100%);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--bg-color);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            /* Dynamic Background */
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(100, 100, 255, 0.05) 0%, transparent 25%);
+        }
+
+        /* Animated Mesh Background (Pseudo-element) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            width: var(--sidebar-width);
+            background: rgba(15, 16, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            z-index: 100;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .brand img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .brand:hover img {
+            transform: rotate(360deg);
+        }
+
+        .brand h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav button {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 14px 18px;
+            text-align: left;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav button:hover {
+            background: var(--surface-hover);
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        nav button.active {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: inset 3px 0 0 var(--primary-color);
+        }
+
+        nav button.active ion-icon {
+            color: #fff;
+            filter: drop-shadow(0 0 5px var(--primary-color));
+        }
+
+        nav h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 25px 0 10px;
+            padding-left: 10px;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-sidebar {
+            background: var(--surface-color);
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-sidebar:hover::before {
+            left: 100%;
+        }
+
+        .btn-sidebar:hover {
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-invite {
+            background: var(--accent-gradient);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-invite:hover {
+            box-shadow: 0 6px 20px var(--primary-glow);
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(135deg, #e5c14d 0%, #fff0b8 100%);
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 50px;
+            position: relative;
+        }
+
+        /* Pages */
+        .page {
+            max-width: 950px;
+            margin: 0 auto;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes fadInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1.page-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #bbb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+        }
+
+        p.page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 50px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 ion-icon {
+            color: var(--primary-color);
+        }
+
+        /* Command Cards */
+        .command-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .command-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+            color: var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        code {
+            background: #111;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+            margin-top: 15px;
+        }
+
+        .params-table th {
+            text-align: left;
+            color: #888;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        .params-table td {
+            padding: 12px 15px;
+            color: #ccc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .params-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .params-table td:first-child {
+            color: var(--primary-color);
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* Hero Home */
+        .hero-banner {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        /* Glorious Glow behind hero */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: var(--primary-color);
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: pulse 5s infinitealternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.15;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.25;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            100% {
+                opacity: 0.15;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .hero-banner img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 50px var(--primary-glow);
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .hero-banner h1 {
+            font-size: 4rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .btn-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 45px;
+            background: var(--accent-gradient);
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 40px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px -5px var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-large:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px -10px var(--primary-glow);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="brand">
+            <img src="https://i.ibb.co/ZzxjZCWW/6b98d931ff0e.png" alt="Logo">
+            <h1>Prime Pro+</h1>
+        </div>
+
+        <nav>
+            <button class="active" onclick="showPage('home')">
+                <ion-icon name="grid-outline"></ion-icon> Accueil
+            </button>
+            <button onclick="showPage('start')">
+                <ion-icon name="rocket-outline"></ion-icon> Démarrage
+            </button>
+
+            <h3>Modules</h3>
+            <button onclick="showPage('verification')">
+                <ion-icon name="shield-checkmark-outline"></ion-icon> Vérification
+            </button>
+            <button onclick="showPage('roles')">
+                <ion-icon name="color-palette-outline"></ion-icon> Rôles & Réactions
+            </button>
+            <button onclick="showPage('tickets')">
+                <ion-icon name="ticket-outline"></ion-icon> Support & Tickets
+            </button>
+            <button onclick="showPage('accueil')">
+                <ion-icon name="log-in-outline"></ion-icon> Logs & Accueil
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="https://discord.gg/fSdcbuWwTp" target="_blank" class="btn-sidebar">
+                <ion-icon name="logo-discord" style="color: #5865F2;"></ion-icon> Prime Communauté
+            </a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1459752987378323548&permissions=8&scope=bot%20applications.commands"
+                target="_blank" class="btn-sidebar btn-invite">
+                <ion-icon name="add-circle"></ion-icon> Inviter le Bot
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- PAGE: ACCUEIL -->
+        <section id="home" class="page active">
+            <div class="hero-banner">
+                <img src="https://i.ibb.co/ZzxjZCWW/6b98d931ff0e.png" alt="Prime Pro+">
+                <h1>PRIME PRO+</h1>
+                <p style="font-size: 1.5rem; color: #fff; font-weight: 300;">L'EXPERIENCE ULTIME POUR VOTRE SERVEUR</p>
+                <div style="width: 60px; height: 3px; background: var(--primary-color); margin: 20px auto;"></div>
+                <p style="max-width: 600px; margin: 0 auto; color: #aaa; line-height: 1.6;">
+                    Bienvenue dans la documentation officielle de Prime Pro+.
+                    <br>Explorez nos modules et configurez votre bot en quelques clics.
+                </p>
+
+                <a href="javascript:void(0)" onclick="showPage('start')" class="btn-large">
+                    Commencer l'installation <ion-icon name="arrow-forward"></ion-icon>
+                </a>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <h2 style="justify-content: center; border:0;">Fonctionnalités Clés</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <ion-icon name="cube-outline"
+                                style="font-size: 2rem; color: var(--primary-color);"></ion-icon>
+                            <h3 style="margin:0;">Modulaire</h3>
+                        </div>
+                        <p>Tout est optionnel. Activez uniquement ce dont vous avez besoin pour garder votre serveur
+                            léger et rapide.</p>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-header">
+                            <ion-icon name="lock-closed-outline"
+                                style="font-size: 2rem; color: var(--primary-color);"></ion-icon>
+                            <h3 style="margin:0;">Sécurisé</h3>
+                        </div>
+                        <p>Système anti-raid, vérification complète et isolation stricte des configurations entre les
+                            serveurs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: DEMARRAGE RAPIDE -->
+        <section id="start" class="page">
+            <h1 class="page-title">Démarrage Rapide</h1>
+            <p class="page-subtitle">Déployez Prime Pro+ en moins de 2 minutes chrono.</p>
+
+            <h2><ion-icon name="download-outline"></ion-icon> 1. Invitation Admin</h2>
+            <p>Pour garantir que tous les modules fonctionnent sans erreur (création de salon, gestion des rôles), le
+                bot requiert les droits d'Administrateur.</p>
+
+            <div class="command-card" style="text-align: center;">
+                <p style="margin-bottom: 20px;">Cliquez sur ce bouton sécurisé pour lancer l'invitation avec les droits
+                    pré-configurés.</p>
+                <a href="https://discord.com/oauth2/authorize?client_id=1459752987378323548&permissions=8&scope=bot%20applications.commands"
+                    target="_blank" class="btn-large" style="margin-top:0; padding: 12px 30px; font-size: 1rem;">
+                    <ion-icon name="logo-discord"></ion-icon> Ajouter au Serveur
+                </a>
+            </div>
+
+            <h2><ion-icon name="settings-outline"></ion-icon> 2. Premiers Pas</h2>
+            <p>Une fois le bot sur votre serveur, il est silencieux par défaut. Réveillez-le avec ces commandes :</p>
+            <div class="command-card">
+                <ul>
+                    <li style="margin-bottom: 10px;"><code>/setup</code> : Lance l'installation de base (Vérification).
+                    </li>
+                    <li style="margin-bottom: 10px;"><code>/setup-tickets</code> : Installe le support ticket.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PAGE: VERIFICATION -->
+        <section id="verification" class="page">
+            <h1 class="page-title">Système de Vérification</h1>
+            <p class="page-subtitle">Le bouclier anti-raid ultime pour votre serveur.</p>
+
+            <h2>Commandes</h2>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">SETUP</span>
+                    <code>/setup</code>
+                </div>
+                <p>La commande magique. Elle configure :</p>
+                <ul style="margin-left: 20px; color: #aaa;">
+                    <li>Les rôles <strong>Vérifié</strong> et <strong>Non Vérifié</strong>.</li>
+                    <li>Le salon <strong>#verification</strong>.</li>
+                    <li>Les permissions des salons pour rendre le serveur privé.</li>
+                </ul>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CONFIG</span>
+                    <code>/config verification</code>
+                </div>
+                <p>Modifier les rôles utilisés par le système.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>unverified-role</td>
+                        <td>Rôle donné à l'arrivée.</td>
+                    </tr>
+                    <tr>
+                        <td>verified-role</td>
+                        <td>Rôle donné après validation.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">VISUAL</span>
+                    <code>/config images</code>
+                </div>
+                <p>Changer l'apparence de l'embed de vérification.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>image</td>
+                        <td>URL de l'image principale (bannière).</td>
+                    </tr>
+                    <tr>
+                        <td>logo</td>
+                        <td>URL de la petite icône (footer).</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- PAGE: ROLES -->
+        <section id="roles" class="page">
+            <h1 class="page-title">Rôles & Réactions</h1>
+            <p class="page-subtitle">Créez des menus interactifs pour vos membres.</p>
+
+            <h2>Création</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">ADD</span>
+                    <code>/config-roles add-button</code>
+                </div>
+                <p>Ajoute un nouveau choix de rôle dans votre configuration.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>role</td>
+                        <td>Le rôle à attribuer.</td>
+                    </tr>
+                    <tr>
+                        <td>label</td>
+                        <td>Texte sur le bouton.</td>
+                    </tr>
+                    <tr>
+                        <td>emoji</td>
+                        <td>(Optionnel) Emoji sur le bouton.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">DEPLOY</span>
+                    <code>/setup-panel</code>
+                </div>
+                <p>Fait apparaître le menu de sélection des rôles dans le salon actuel.</p>
+            </div>
+        </section>
+
+        <!-- PAGE: TICKETS -->
+        <section id="tickets" class="page">
+            <h1 class="page-title">Support & Tickets</h1>
+            <p class="page-subtitle">Offrez un support client de niveau professionnel.</p>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">INSTALL</span>
+                    <code>/setup-tickets</code>
+                </div>
+                <p>Installe le panneau de création de tickets.</p>
+            </div>
+
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">SETTINGS</span>
+                    <code>/config-tickets</code>
+                </div>
+                <p>Configurez le comportement des tickets.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Sous-commande</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>set-category</td>
+                        <td>Catégorie où s'ouvrent les tickets.</td>
+                    </tr>
+                    <tr>
+                        <td>set-logs</td>
+                        <td>Salon pour l'historique (transcripts).</td>
+                    </tr>
+                    <tr>
+                        <td>add-support</td>
+                        <td>Ajouter un rôle Staff autorisé à répondre.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- PAGE: ACCUEIL -->
+        <section id="accueil" class="page">
+            <h1 class="page-title">Logs & Accueil</h1>
+            <p class="page-subtitle">Gérez les arrivées et les départs avec élégance.</p>
+
+            <h2>Configuration</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CORE</span>
+                    <code>/config-accueil</code>
+                </div>
+                <p>Paramètres principaux du module.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Sous-commande</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>set-welcome-channel</td>
+                        <td>Salon pour les arrivées (Image + Message).</td>
+                    </tr>
+                    <tr>
+                        <td>set-leave-channel</td>
+                        <td>Salon pour les départs.</td>
+                    </tr>
+                    <tr>
+                        <td>set-images</td>
+                        <td>Configuration du fond et du logo.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="command-card">
+                <p><strong>Note sur les Images :</strong> Le bot génère automatiquement une image de bienvenue incluant
+                    l'avatar du membre. Utilisez une image de fond de haute qualité (1024x500 recommandé).</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+            // Show target page
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+            }, 50);
+
+            // Update nav buttons
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+            // Find the button and highlight it
+            const btns = Array.from(document.querySelectorAll('nav button'));
+            const targetBtn = btns.find(b => b.getAttribute('onclick')?.includes(pageId));
+            if (targetBtn) targetBtn.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
