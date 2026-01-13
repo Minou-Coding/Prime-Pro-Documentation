@@ -1277,6 +1277,8 @@
                 <p>Plus besoin de créer 50 salons vocaux vides. Les membres créent leur propre salon en un clic, le
                     gèrent,
                     et il se supprime quand il est vide.</p>
+                <p><em>Nouveau : Support Multi-Catégories ! Vous pouvez installer plusieurs panels dans différentes
+                        catégories (ex: Gaming, Discussion, Privé).</em></p>
             </div>
 
             <h2>Installation</h2>
@@ -1285,10 +1287,44 @@
                     <span class="badge">SETUP</span>
                     <code>/setup-voice</code>
                 </div>
-                <p>Installe le panneau de création (Bouton "Créer mon salon").</p>
-                <p><strong>Paramètre Requis :</strong> <code>categorie</code> (La catégorie où les salons temporaires
-                    seront
-                    créés).</p>
+                <p>Installe le panneau de création pour une catégorie spécifique.</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>categorie</td>
+                        <td>La catégorie où les salons temporaires seront créés.</td>
+                    </tr>
+                    <tr>
+                        <td>delai_seul</td>
+                        <td>(Optionnel) Temps (en min) avant qu'un utilisateur seul soit déconnecté.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Configuration Avancée</h2>
+            <div class="command-card">
+                <div class="command-header">
+                    <span class="badge">CONFIG</span>
+                    <code>/config-voice</code>
+                </div>
+                <p>Gérez les temps de suppression automatique (Auto-Disconnect).</p>
+                <table class="params-table">
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>temps</td>
+                        <td>Temps par défaut (en minutes) avant déconnexion si seul. (0 = désactivé).</td>
+                    </tr>
+                    <tr>
+                        <td>categorie</td>
+                        <td>(Optionnel) Appliquer ce temps uniquement à une catégorie spécifique.</td>
+                    </tr>
+                </table>
             </div>
 
             <h2>Interface de Gestion</h2>
@@ -1302,9 +1338,13 @@
             </div>
 
             <div class="command-card alert-card warning">
-                <h3 style="margin-top:0;">Suppression Automatique</h3>
-                <p>Les salons se suppriment instantanément dès qu'ils sont **totalement vides** (0 personnes dedans).
-                </p>
+                <h3 style="margin-top:0;">Nettoyage & Auto-Disconnect</h3>
+                <ul style="margin-left: 20px; color: #ccc;">
+                    <li><strong>Si vide :</strong> Le salon est supprimé instantanément.</li>
+                    <li><strong>Si seul (et délai configuré) :</strong> L'utilisateur est <strong>déconnecté</strong>
+                        après X minutes.</li>
+                    <li><em>Une fois déconnecté, le salon devient vide et est donc supprimé.</em></li>
+                </ul>
             </div>
         </section>
     </main>
